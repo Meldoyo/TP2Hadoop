@@ -10,7 +10,6 @@ import java.util.Iterator;
 public class CountNumberOfFirstNameByNumberOfOrigins {
     private static class Map extends MapReduceBase implements Mapper<LongWritable, Text, IntWritable, IntWritable> {
         private final static IntWritable one = new IntWritable(1);
-        private Text word = new Text();
         public void map(LongWritable key, Text value, OutputCollector<IntWritable, IntWritable> output, Reporter reporter) throws IOException {
             System.out.println(String.valueOf(key));
             String line = value.toString();
