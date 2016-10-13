@@ -15,7 +15,11 @@ public class CountNumberOfFirstNameByNumberOfOrigins {
             String line = value.toString();
             String[] lineSplit = line.split(";");
             String[] originSplit = lineSplit[2].split(",");
-            output.collect(new IntWritable(originSplit.length), one);
+            if (originSplit[0].isEmpty()) {
+                output.collect(new IntWritable(0), one);
+            } else {
+                output.collect(new IntWritable(originSplit.length), one);
+            }
         }
     }
 
