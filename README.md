@@ -7,6 +7,8 @@ Hadoop TP2 by Anthony Da Mota and Paul-Adrien Cordonnier.
 
 ## How to use it?
 
+Download the [latest release][last release] (TP2_Hadoop.jar).
+
 The three M/R are available:
 
 ###1. Count first name by origin:
@@ -26,3 +28,4 @@ See [AUTHORS][AUTHORS].
 
 
 [AUTHORS]: <AUTHORS>
+[last release]: <https://github.com/Meldoyo/TP2Hadoop/releases/latest>
