@@ -66,5 +66,6 @@ public class PercentageOfGender {
         // Our goal was to create two jobs, the output of the first would be the input of the second.
         // We can use JobControl in order to add job1 as a depending job of job2.
         // The main problem was to link the two jobs together, we only need to have a reduce phase with an input of the number of names and the total number of names
+        // The total numbers of names processed is available through a counter using the reporter object.
     }
 }
