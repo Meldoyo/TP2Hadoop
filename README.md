@@ -1,7 +1,7 @@
 # README
 ----
 
-## What it is?
+## What is it?
 Hadoop TP2 by Anthony Da Mota and Paul-Adrien Cordonnier.
 
 
