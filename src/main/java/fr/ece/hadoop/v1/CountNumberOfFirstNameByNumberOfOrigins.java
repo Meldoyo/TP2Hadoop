@@ -1,3 +1,5 @@
+package fr.ece.hadoop.v1;
+
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;

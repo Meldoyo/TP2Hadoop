@@ -1,3 +1,5 @@
+package fr.ece.hadoop.v1;
+
 import java.io.IOException;
 
 import java.util.*;

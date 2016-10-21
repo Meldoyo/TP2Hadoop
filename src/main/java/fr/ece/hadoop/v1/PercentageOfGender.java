@@ -1,13 +1,11 @@
-import com.google.common.collect.Lists;
+package fr.ece.hadoop.v1;
+
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapred.*;
-import org.apache.hadoop.mapreduce.Job;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * Created by pcordonnier on 13/10/16.

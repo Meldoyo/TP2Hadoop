@@ -1,3 +1,5 @@
+package fr.ece.hadoop.v2;
+
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
@@ -12,27 +14,32 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import java.io.IOException;
 
-
-public class CountNumberOfFirstNameByNumberOfOriginsV2 {
-    private static class Map extends Mapper<LongWritable, Text, IntWritable, IntWritable> {
+/**
+ * Created by pcordonnier on 20/10/16.
+ */
+public class CountNameByOrigin extends Mapper {
+    private static class Map extends Mapper<LongWritable, Text, Text, IntWritable> {
         private final static IntWritable one = new IntWritable(1);
+        private Text word = new Text();
 
         @Override
         protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
             String line = value.toString();
             String[] lineSplit = line.split(";");
             String[] originSplit = lineSplit[2].split(",");
-            if (originSplit[0].isEmpty()) {
-                context.write(new IntWritable(0), one);
-            } else {
-                context.write(new IntWritable(originSplit.length), one);
+            for (String s : originSplit) {
+                if (s.equals("")) {
+                    s = "?";
+                }
+                word.set(s.trim());
+                context.write(word, one);
             }
         }
     }
 
-    private static class Reduce extends Reducer<IntWritable, IntWritable, IntWritable, IntWritable> {
+    private static class Reduce extends Reducer<Text, IntWritable, Text, IntWritable> {
         @Override
-        protected void reduce(IntWritable key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
+        protected void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
             int sum = 0;
             for (IntWritable value : values) {
                 sum += value.get();
@@ -43,16 +50,15 @@ public class CountNumberOfFirstNameByNumberOfOriginsV2 {
 
     public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
         Job job = Job.getInstance();
-        job.setJarByClass(CountNameByOriginV2.class);
+        job.setJarByClass(CountNameByOrigin.class);
 
-        job.setJobName("CountNumberOfFirstNameByNumberOfOriginsV2");
+        job.setJobName("fr.ece.hadoop.v2.CountNameByOrigin");
 
         job.setInputFormatClass(TextInputFormat.class);
         job.setOutputFormatClass(TextOutputFormat.class);
 
-        job.setOutputKeyClass(IntWritable.class);
+        job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
-
 
         FileInputFormat.addInputPath(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
@@ -63,5 +69,4 @@ public class CountNumberOfFirstNameByNumberOfOriginsV2 {
 
         job.waitForCompletion(true);
     }
-
 }

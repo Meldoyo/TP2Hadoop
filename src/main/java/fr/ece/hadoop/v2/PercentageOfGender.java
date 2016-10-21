@@ -1,3 +1,5 @@
+package fr.ece.hadoop.v2;
+
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
@@ -13,13 +15,11 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.Map;
 
 /**
  * Created by pcordonnier on 20/10/16.
  */
-public class PercentageOfGenderV2 {
+public class PercentageOfGender {
     private static class Map extends Mapper<LongWritable, Text, Text, IntWritable> {
         private final static IntWritable one = new IntWritable(1);
 
@@ -67,9 +67,9 @@ public class PercentageOfGenderV2 {
 
     public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
         Job job = Job.getInstance();
-        job.setJarByClass(CountNameByOriginV2.class);
+        job.setJarByClass(CountNameByOrigin.class);
 
-        job.setJobName("PercentageOfGenderV2");
+        job.setJobName("fr.ece.hadoop.v2.PercentageOfGender");
 
         job.setInputFormatClass(TextInputFormat.class);
         job.setOutputFormatClass(TextOutputFormat.class);
