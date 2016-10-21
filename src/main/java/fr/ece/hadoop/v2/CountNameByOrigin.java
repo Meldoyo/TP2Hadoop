@@ -14,14 +14,12 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import java.io.IOException;
 
-/**
- * Created by pcordonnier on 20/10/16.
- */
 public class CountNameByOrigin extends Mapper {
     private static class Map extends Mapper<LongWritable, Text, Text, IntWritable> {
         private final static IntWritable one = new IntWritable(1);
         private Text word = new Text();
 
+        //In this map, the key is an origin (could one or more origin per line) and the value is one
         @Override
         protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
             String line = value.toString();
@@ -38,6 +36,7 @@ public class CountNameByOrigin extends Mapper {
     }
 
     private static class Reduce extends Reducer<Text, IntWritable, Text, IntWritable> {
+        //In the reduce we sum the values associated with the keys.
         @Override
         protected void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
             int sum = 0;

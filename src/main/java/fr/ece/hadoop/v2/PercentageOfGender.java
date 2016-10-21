@@ -23,6 +23,8 @@ public class PercentageOfGender {
     private static class Map extends Mapper<LongWritable, Text, Text, IntWritable> {
         private final static IntWritable one = new IntWritable(1);
 
+        //In this map, the key is the gender (as a Text) and the value is one
+        //We increment a counter each time we map a value in order to calculate the percentage in the reduce
         @Override
         protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
             String line = value.toString();
@@ -49,6 +51,9 @@ public class PercentageOfGender {
             mapperCounter = currentJob.getCounters().findCounter("Custom counter", "Input counter").getValue();
         }
 
+
+        //This reduce sum the values for each key
+        //We then calculate the percentage using the value of the counter
         @Override
         protected void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
             int sum = 0;
@@ -57,16 +62,6 @@ public class PercentageOfGender {
             }
             float percent = sum * 100.0f / mapperCounter;
 
-            //What I was expecting to do:
-            //From a counter in the map phase, I get the number of total lines I have,
-            // which the total number of names
-            //In the setup, I obtain this value in the reduce
-            //Now I just need to divide the sum of male by the total by the total !
-            //
-            //However reduce is called twice per key, which I don't understand why,
-            // and I can't calculate percentage this way since the calculation is done twice
-            //
-            //The best solution is probably to chain two jobs, output of first as input of the second and depending jobs.
             context.write(key, new IntWritable((int)percent));
         }
     }

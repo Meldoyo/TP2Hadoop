@@ -19,6 +19,7 @@ public class CountNumberOfFirstNameByNumberOfOrigins {
     private static class Map extends Mapper<LongWritable, Text, IntWritable, IntWritable> {
         private final static IntWritable one = new IntWritable(1);
 
+        //In this map the key is the number of origins of the name and the value is one
         @Override
         protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
             String line = value.toString();
@@ -33,6 +34,7 @@ public class CountNumberOfFirstNameByNumberOfOrigins {
     }
 
     private static class Reduce extends Reducer<IntWritable, IntWritable, IntWritable, IntWritable> {
+        //In the reduce we sum the values associated with the key.
         @Override
         protected void reduce(IntWritable key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
             int sum = 0;
