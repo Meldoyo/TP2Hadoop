@@ -40,6 +40,7 @@ public class PercentageOfGender {
         private long mapperCounter;
 
         // http://stackoverflow.com/questions/5450290/accessing-a-mappers-counter-from-a-reducer
+        // We obtain the value of the input counter from the mapper in the reducer.
         @Override
         protected void setup(Context context) throws IOException, InterruptedException {
             Configuration conf = context.getConfiguration();
@@ -57,10 +58,15 @@ public class PercentageOfGender {
             //int percent = (float)((float)sum * 100.0f/ mapperCounter);
 
             //What I was expecting to do:
-            //From a counter in the map phase, I get the number of total lines I have, which the total number of names
-            //Through the setup, I obtain this value in the reduce
+            //From a counter in the map phase, I get the number of total lines I have,
+            // which the total number of names
+            //In the setup, I obtain this value in the reduce
             //Now I just need to divide the sum of male by the total by the total !
-            //Except NO, reduce is called twice per key, which I don't understand why, and I can't calculate percentage this way since the calculation is done twice
+            //
+            //However reduce is called twice per key, which I don't understand why,
+            // and I can't calculate percentage this way since the calculation is done twice
+            //
+            //The best solution is probably to chain two jobs, output of first as input of the second and depending jobs.
             context.write(key, new IntWritable(sum));
         }
     }
