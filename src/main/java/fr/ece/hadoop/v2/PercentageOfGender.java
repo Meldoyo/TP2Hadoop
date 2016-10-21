@@ -55,7 +55,7 @@ public class PercentageOfGender {
             for (IntWritable value : values) {
                 sum += value.get();
             }
-            //int percent = (float)((float)sum * 100.0f/ mapperCounter);
+            float percent = sum * 100.0f / mapperCounter;
 
             //What I was expecting to do:
             //From a counter in the map phase, I get the number of total lines I have,
@@ -67,7 +67,7 @@ public class PercentageOfGender {
             // and I can't calculate percentage this way since the calculation is done twice
             //
             //The best solution is probably to chain two jobs, output of first as input of the second and depending jobs.
-            context.write(key, new IntWritable(sum));
+            context.write(key, new IntWritable((int)percent));
         }
     }
 
@@ -87,7 +87,6 @@ public class PercentageOfGender {
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
         job.setMapperClass(Map.class);
-        job.setCombinerClass(Reduce.class);
         job.setReducerClass(Reduce.class);
 
         job.waitForCompletion(true);
