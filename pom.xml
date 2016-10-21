@@ -5,7 +5,7 @@
 
     <groupId>ovh.pacordonnier.hadoop</groupId>
     <artifactId>TP2Hadoop</artifactId>
-    <version>0.1</version>
+    <version>0.2</version>
     <packaging>jar</packaging>
 
     <name>TP2Hadoop</name>
