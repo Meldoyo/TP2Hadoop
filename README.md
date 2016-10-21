@@ -19,12 +19,13 @@ The three M/R are available:
 
 `hadoop jar TP2_Hadoop.jar fr.ece.hadoop.v2.CountNumberOfFirstNameByNumberOfOrigins /res/prenoms.csv /user/your_user/out`
 
-###3. Proportion (in%) of male or female (which doesn't work, see comments in v2):
+###3. Proportion (in%) of male or female (now it does work !!):
 
 `hadoop jar TP2_Hadoop.jar fr.ece.hadoop.v2.PercentageOfGender /res/prenoms.csv /user/your_user/out`
 
 
 Two versions are available (v1 and v2) using both MapReduce API (mapred and mapreduce).
+V2 contains much more comments.
 ## Authors
 See [AUTHORS][AUTHORS].
 
